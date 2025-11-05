@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Mahmood Fazile — UI/UX Designer</title>
+  <title>John Cristopher — UI/UX Designer</title>
 
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -11,6 +11,7 @@
   <!-- Font Awesome (icons) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
+  <!-- Linked CSS -->
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -20,12 +21,12 @@
     <div class="nav-inner">
       <div class="logo"><span>LOGO</span></div>
 
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
         <i class="fa fa-bars"></i>
       </button>
 
       <nav class="nav-links" id="navLinks">
-        <a href="#home" class="active">Home</a>
+        <a href="#home" class="active" aria-current="page">Home</a>
         <a href="#services">Services</a>
         <a href="#about">About me</a>
         <a href="#portfolio">Portfolio</a>
@@ -42,13 +43,15 @@
   <main>
     <section id="home" class="hero">
       <div class="container hero-grid">
-
         <div class="hero-text">
           <p class="muted">Hi I am</p>
-          <h2 class="name">Mahmood Fazile</h2>
+          <h2 class="name">John Cristopher</h2>
           <h1 class="title"><span>UI/UX</span> designer</h1>
 
-          <p class="lead">Creating clean, intuitive interfaces and delightful user experiences for web & mobile. I craft pixel-perfect UI and solve UX problems with research-driven solutions.</p>
+          <p class="lead">
+            Creating clean, intuitive interfaces and delightful user experiences for web & mobile.
+            I craft pixel-perfect UI and solve UX problems with research-driven solutions.
+          </p>
 
           <div class="social-icons">
             <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
@@ -78,17 +81,14 @@
               <p>Happy Clients</p>
             </div>
           </div>
-
         </div>
 
         <div class="hero-image">
           <div class="portrait-ring">
-            <!-- Replace with your portrait file or remote url -->
-            <img src="portrait.png" alt="Mahmood Fazile portrait" loading="lazy">
+            <img src="portrait.png" alt="John Cristopher portrait" loading="lazy">
           </div>
           <div class="image-badge">UI/UX</div>
         </div>
-
       </div>
     </section>
 
@@ -98,7 +98,10 @@
         <h2>About Me</h2>
         <div class="about-grid">
           <div>
-            <p>I’m a UI/UX designer focused on building accessible and beautiful interfaces. I combine research, prototyping and visual design to deliver polished products.</p>
+            <p>
+              I’m a UI/UX designer focused on building accessible and beautiful interfaces.
+              I combine research, prototyping, and visual design to deliver polished products.
+            </p>
             <ul class="about-list">
               <li><strong>Location:</strong> Your City</li>
               <li><strong>Available:</strong> Freelance / Full-time</li>
@@ -148,7 +151,7 @@
       </div>
     </section>
 
-    <!-- PORTFOLIO (simple gallery) -->
+    <!-- PORTFOLIO -->
     <section id="portfolio" class="section portfolio">
       <div class="container">
         <h2>Selected Work</h2>
@@ -215,7 +218,7 @@
   <!-- FOOTER -->
   <footer class="footer">
     <div class="container footer-inner">
-      <div>© <strong>Mahmood Fazile</strong> — UI/UX Designer</div>
+      <div>© <strong>John Cristopher</strong> — UI/UX Designer</div>
       <div class="footer-links">
         <a href="#">Privacy</a>
         <a href="#">Terms</a>
@@ -223,25 +226,27 @@
     </div>
   </footer>
 
-  <!-- CV Modal (simple) -->
+  <!-- CV Modal -->
   <div class="modal" id="cvModal" aria-hidden="true">
     <div class="modal-content" role="dialog" aria-modal="true">
       <button class="modal-close" id="cvClose" aria-label="Close">&times;</button>
       <h3>Download CV</h3>
       <p>If you want my CV, click the download button below.</p>
-      <!-- Update cv.pdf path if needed -->
       <a class="btn-primary" href="cv.pdf" download>Download CV (PDF)</a>
     </div>
   </div>
 
-  <!-- Minimal JS for interactivity -->
+  <!-- Minimal JS -->
   <script>
     // Mobile nav toggle
     const navToggle = document.getElementById('navToggle');
     const navLinks = document.getElementById('navLinks');
-    navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+    navToggle.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', open);
+    });
 
-    // Smooth scrolling for nav anchors
+    // Smooth scrolling
     document.querySelectorAll('a[href^="#"]').forEach(a=>{
       a.addEventListener('click', function(e){
         const target = document.querySelector(this.getAttribute('href'));
@@ -249,6 +254,7 @@
           e.preventDefault();
           target.scrollIntoView({behavior:'smooth', block:'start'});
           navLinks.classList.remove('open');
+          navToggle.setAttribute('aria-expanded','false');
         }
       });
     });
@@ -257,7 +263,6 @@
     const cvBtn = document.getElementById('cvBtn');
     const cvModal = document.getElementById('cvModal');
     const cvClose = document.getElementById('cvClose');
-
     cvBtn && cvBtn.addEventListener('click', ()=> {
       cvModal.classList.add('show');
       cvModal.setAttribute('aria-hidden', 'false');
@@ -266,7 +271,6 @@
       cvModal.classList.remove('show');
       cvModal.setAttribute('aria-hidden', 'true');
     });
-    // close on outside click
     cvModal && cvModal.addEventListener('click', (e)=>{
       if(e.target === cvModal){
         cvModal.classList.remove('show');
